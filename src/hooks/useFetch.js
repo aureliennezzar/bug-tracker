@@ -15,6 +15,7 @@ const useFecth = (url = '', options = null) => {
             .then(data => {
                 if (isMounted) {
                     setData(data)
+                    console.log(data)
                     setError(null)
                 }
             })

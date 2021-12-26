@@ -1,21 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./components/App/App";
-import { render } from "react-dom";
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+
 ReactDOM.render(
     <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<App />}>
-            </Route>
-        </Routes>
+        <App />
     </BrowserRouter>,
-  document.getElementById('root')
+    document.getElementById("root")
 );
-
-reportWebVitals();

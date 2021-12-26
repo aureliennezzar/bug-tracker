@@ -1,21 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './App.scss'
-import useFetch from "../../hooks/useFetch";
-
-const URL = "https://jsonplaceholder.typicode.com/todos";
+import {Routes, Route, Link, Navigate} from "react-router-dom";
+import SignIn from "../../pages/SignIn/SignIn";
+import SignUp from "../../pages/SignUp/SignUp";
+import Dashboard from "../../pages/Dashboard/Dashboard";
+import Home from "../../pages/Home/Home";
+import BugList from "../BugList/BugList";
+import MyBugs from "../MyBugs/MyBugs";
+import SingleBug from "../SingleBug/SingleBug";
+import {getToken} from "../../services/utils/utils";
 
 const App = () => {
-    const {loading, error, data} = useFetch(URL);
-
-    if (loading) return 'loading...'
-    if (error) return 'error...'
 
     return (
         <>
-            <h1>APP</h1>
-            {data?.map(article => (
-                <p>{article.title}</p>
-            ))}
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+
+                    <Route path="/bug/:id" element={typeof getToken() !== undefined && getToken() ? <SingleBug/> : <Navigate to={"/"}/>}>
+                    </Route>
+
+                    <Route path="/dashboard" element={typeof getToken() !== undefined && getToken() ? <Dashboard/> : <Navigate to={"/"}/>}>
+                        <Route path="/dashboard/buglist" element={<BugList/>}/>
+                        <Route path="/dashboard/mybugs" element={<MyBugs/>}/>
+                    </Route>
+
+                    <Route path="/signup" element={<SignUp/>}/>
+                    <Route path="/signin" element={<SignIn/>}/>
+
+                </Routes>
         </>
     )
 
